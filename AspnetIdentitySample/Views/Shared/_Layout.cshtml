@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- Based on the ASP.NET MVC 5 EF 6 Framework --------------------------------------------------->
+    <!-- Developed by John McDonald for Fleet Safety Equipment, Inc. (C) 2014. All Rights Reserved. -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title | FSE SalesBase</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (User.Identity.IsAuthenticated && ViewContext.HttpContext.User.IsInRole("Admin") || User.Identity.IsAuthenticated && ViewContext.HttpContext.User.IsInRole("User"))
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        //<li>@Html.ActionLink("My Profile", "Profile", "Home")</li>
+                        <li>@Html.ActionLink("Appointments", "Index", "ToDo")</li>
+                        <li>@Html.ActionLink("After Visit Reports", "Index", "AfterVisit")</li>
+                    }
+                    else
+                    {
+                        <li><b>Please Contact john@fleetsafety.com to finish registration.</b></li>
+                    }
+
+                    @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("All Appointments", "All", "ToDo")</li>
+                        <li>@Html.ActionLink("All After Visit Reports", "All", "AfterVisit")</li>
+                        //<li>@Html.ActionLink("Edit Roles", "Index", "RolesAdmin")</li>
+                        <li>@Html.ActionLink("Edit Users", "Index", "UsersAdmin")</li>
+                        //<li>@Html.ActionLink("Validation", "Index", "Validation")</li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Fleet Safety Equipment, Inc.</p>
+            <p>Email <a href="mailto:john@fleetsafety.com">john@fleetsafety.com</a> to report bugs, issues, etc.</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

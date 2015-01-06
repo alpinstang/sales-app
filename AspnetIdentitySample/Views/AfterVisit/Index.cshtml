@@ -1,0 +1,93 @@
+﻿@model IEnumerable<AspnetIdentitySample.Models.AfterVisit>
+
+@{
+    ViewBag.Title = "Index | After Visit";
+}
+
+<h2>After Visit Index</h2>
+<p><a href="/SalesApp/AfterVisit/Create" id="appointment-button" class="btn btn-primary btn-large">Create After Visit Record</a></p>
+<P>Not all details displayed below. Click 'Details' for more information on a specific record.</P>
+<!--AFTER VISIT FORM-->
+@*These identities will comprise the After Visit Info form
+    public string VisitDate { get; set; }
+    public string Company { get; set; }
+    public string Competition { get; set; }
+    public string PurchaseMethod { get; set; }
+    public string PurchaseDate { get; set; }
+    public string FutureDate { get; set; }
+    public string Discussion { get; set; }*@
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.VisitDate)*@
+            @Html.Label("Visit Date")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Competition)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.PurchaseMethod)*@
+            @Html.Label("Purchase Method")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.PurchaseDate)*@
+            @Html.Label("Expected Purchase Date")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.FutureDate)*@
+            @Html.Label("Future Scheduled Date")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Discussion)*@
+            @Html.Label("Discussed cameras/graphics?")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VisitDate)
+            </td>
+            <td>
+                @{
+        string parameterValue = item.Company.ToString().Substring(0, Math.Min(item.Company.Length, 35)) + "...";
+                }
+                @Html.DisplayFor(modelItem => parameterValue)
+            </td>
+            <td>
+                @{
+                    string parameterValue1 = item.Competition.ToString().Substring(0, Math.Min(item.Competition.Length, 25)) + "...";
+                }
+                @Html.DisplayFor(modelItem => parameterValue1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseMethod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseDate)
+            <td>
+                @Html.DisplayFor(modelItem => item.FutureDate)
+            </td>
+            <td>
+                @{
+                    string parameterValue2 = item.Discussion.ToString().Substring(0, Math.Min(item.Discussion.Length, 25)) + "...";
+                }
+                @Html.DisplayFor(modelItem => parameterValue2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>

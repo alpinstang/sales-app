@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Profile Information";
+}
+<b>
+    My Profile information is as following:
+</b>
+@*<p>
+    HomeTown = @ViewBag.HomeTown
+</p>*@
+<p>
+    FirstName = @ViewBag.FirstName
+    LastName = @ViewBag.LastName
+</p>
+<b>
+    Use this to troubleshoot your event creation abilities. For more info, please contact <a href="mailto:john@fleetsafety.com">john@fleetsafety.com.</a>
+</b>
+@{
+
+    System.Security.Claims.ClaimsPrincipal claimsPrincipal = Context.User as System.Security.Claims.ClaimsPrincipal;
+    System.Security.Claims.ClaimsIdentity id = claimsPrincipal.Identity as System.Security.Claims.ClaimsIdentity;
+    foreach (var claim in id.Claims)
+    {
+        <p>Claim: @claim.ToString()</p>
+    }
+}

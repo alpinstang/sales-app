@@ -1,0 +1,73 @@
+﻿@model IEnumerable<AspnetIdentitySample.Models.ToDo>
+
+@{
+    ViewBag.Title = "All Sales Activity | To Do";
+}
+
+<h2>List of Appointments for All Users</h2>
+<p>
+The list is sorted in descending order based on time entered into the system. (Admin Only)
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.ApptType)*@
+            @Html.DisplayText("Appointment Type")
+            Appointment Type
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.CustomerContact)*@
+            @Html.DisplayText("Customer Contact")
+            Customer Contact
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+               @{
+                    string parameterValue1 = item.Company.ToString().Substring(0, Math.Min(item.Company.Length, 35)) + "...";
+                }
+                @Html.DisplayFor(modelItem => parameterValue1)
+            </td>
+            <td>
+                @{
+                    string parameterValue = item.Description.ToString().Substring(0, Math.Min(item.Description.Length, 25)) + "...";
+                }
+                @Html.DisplayFor(modelItem => parameterValue)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ApptType)
+            </td>
+            <td>
+                @{
+                    string parameterValue2 = item.CustomerContact.ToString().Substring(0, Math.Min(item.CustomerContact.Length, 25)) + "...";
+                }
+                @Html.DisplayFor(modelItem => parameterValue2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,78 @@
+﻿@model AspnetIdentitySample.Models.AfterVisit
+
+@{
+    ViewBag.Title = "Appointment Details";
+}
+
+<h2>Appointment</h2>
+
+<div>
+    <h4>Appointment Details</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Company)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Company)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Competition)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Competition)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.PurchaseMethod)*@
+            @Html.Label("Purchase Method")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseMethod)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.PurchaseDate)*@
+            @Html.Label("Purchase Date")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseDate)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.FutureDate)*@
+            @Html.Label("Future Date")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FutureDate)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.FutureDate)*@
+            @Html.Label("When will they purchase new vehicles?")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewVehicles)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.FutureDate)*@
+            @Html.Label("Number of New Vehicles")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewVehiclesCount)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Discussion)*@
+            @Html.Label("Cameras & Graphics Discussed?")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Discussion)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

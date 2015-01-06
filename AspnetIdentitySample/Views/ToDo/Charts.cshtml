@@ -1,0 +1,140 @@
+﻿@model IEnumerable<AspnetIdentitySample.Models.ToDo>
+
+@{
+    ViewBag.Title = "Charts | To Do";
+}
+
+<h2>Sales Chart</h2>
+<section style="width: 500px; margin: 10px; text-align:center;">
+    <div id="placeholder" style="width: 500px; height: 300px;">
+    </div>
+    <h3 style="font-size:1.4em">The Chart</h3>
+</section>
+<section style="width: 500px; margin: 10px; text-align:center;">
+    <div id="chartContainer" style="width: 800px; height: 500px;">
+    </div>
+    <h3 style="font-size:1.4em">The Chart</h3>
+</section>
+
+<br /><br />
+@*<img src="@Url.Action("GetChartImage")" />*@
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Company)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.IsDone)*@
+            @Html.DisplayName("Followup Scheduled?")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FutureDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FutureDateDetails)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Competition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Budget)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseMethod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FutureDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FutureDateDetails)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Competition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Budget)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseMethod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
+
+@section scripts {
+    <script language="javascript" type="text/javascript" src="~/Scripts/flot/jquery.flot.js"></script>
+<script language="javascript" type="text/javascript" src="~/Scripts/canvasjs.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        @*<script language="javascript" type="text/javascript">
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetTestData")',
+            error: function () {
+                alert("An error occurred.");
+            },
+            success: function (data) {
+                $.plot($("#placeholder"), data, options);
+            }
+        });
+        </script>*@
+        var dataPoints = [];
+        $.getJSON("/ToDo/GetData/", function (data) {
+            for (var i = 0; i <= data.length - 1; i++) {
+                dataPoints.push({ label: data[i].User, y: parseInt(data[i].Budget) });
+            }
+            var chart = new CanvasJS.Chart("chartContainer", {
+                theme: "theme2",
+                title: {
+                    text: "Users VS. Budgets"
+                },
+                data: [
+            {
+                type: "column",
+                dataPoints: dataPoints
+            }
+                ]
+            });
+            chart.render();
+        });
+    });
+    </script>
+}
